@@ -1,10 +1,10 @@
-const Card = ({position}) => {
+const Card = ({position, rotation = [0, 3, 0]}) => {
   return <mesh
     position={position}
-    rotation={[0, 3, 0]}
+    rotation={rotation}
   >
     <boxGeometry
-      args={[1.2, 2, 0.1]}
+      args={[1.2, 2, 0.01]}
     />
     <meshStandardMaterial
       color={'yellow'}
