@@ -1,7 +1,12 @@
-const Card = ({position, rotation = [0, 3, 0]}) => {
+const Card = ({
+  position,
+  rotation = [0, 3, 0],
+  onClick = () => {}
+}) => {
   return <mesh
     position={position}
     rotation={rotation}
+    onClick={onClick}
   >
     <boxGeometry
       args={[1.2, 2, 0.01]}
