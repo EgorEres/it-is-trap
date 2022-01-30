@@ -1,20 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit'
+import dota2Pack from '../static/packs/dota2-pack/dota2Pack'
 
 const initialState = {
-  pack: [1,1,1,1,1,2,2,2,2,3,3,3,4,4,5],
+  pack: dota2Pack,
 }
 
 export const mainSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
-    setPack: (state, action) => {
-        state.pack = action.payload
+    setPackAction: (state, action) => {
+      state.pack = action.payload
     }
   },
 })
 
-// Action creators are generated for each case reducer function
-export const { setPack } = mainSlice.actions
+export const { setPackAction } = mainSlice.actions
 
 export default mainSlice.reducer
