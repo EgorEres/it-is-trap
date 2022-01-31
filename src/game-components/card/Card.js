@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react'
 import Image from '../image/Image'
+import { useSpring, animated } from '@react-spring/three'
 
 const Card = ({
   position,
@@ -7,32 +8,31 @@ const Card = ({
   onClick = () => {},
   cardData
 }) => {
-  const [scale, setScale] = useState(1)
-  const [currentPosition, setPosition] = useState(position)
-  const [currentRotation, setRotation] = useState(rotation)
+  const [active, setActive] = useState(false)
+  const springs = useSpring({
+    config: { duration: 300 },
+    scale: active ? 1.2 : 1,
+    position: active ? [position[0] + 0.3, position[1] + 0.7, 1] : position,
+    rotation: active ? [0,0,0] : rotation,
+  })
 
-  // this handlers we can change to ref
   const enterHandler = useCallback(e => {
     e.stopPropagation()
-    setPosition([currentPosition[0] + 0.3, currentPosition[1] + 0.7, 1])
-    setRotation([0,0,0])
-    setScale(1.2)
-  }, [setPosition, setRotation, setScale, currentPosition])
+    setActive(true)
+  }, [setActive])
 
   const leaveHandler = useCallback(e => {
     e.stopPropagation()
-    setPosition(position)
-    setRotation(rotation)
-    setScale(1)
-  }, [setPosition, setRotation, setScale, position, rotation])
+    setActive(false)
+  }, [setActive])
 
-  return <group
-    position={currentPosition}
-    rotation={currentRotation}
+  return <animated.group
+    position={springs.position}
+    rotation={springs.rotation}
     onClick={onClick}
     onPointerEnter={enterHandler}
     onPointerLeave={leaveHandler}
-    scale={scale}
+    scale={springs.scale}
   >
     <Image url={cardData.imgUrl} />
     <mesh>
@@ -46,7 +46,7 @@ const Card = ({
         lightMapIntensity={3}
       />
     </mesh>
-  </group>
+  </animated.group>
 }
 
 export default Card

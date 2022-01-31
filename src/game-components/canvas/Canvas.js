@@ -6,6 +6,7 @@ import Card from '../card/Card';
 import { useSelector } from 'react-redux';
 import { getMixedPack } from '../../store/main-selector'
 import PackBlock from '../packBlock/pack-block';
+import CenterCard from '../card/CenterCard';
 
 const useStore = () => ({
   mixedPack: useSelector(getMixedPack)
@@ -17,13 +18,14 @@ function MainCanvas() {
   const [hand, updateHand] = useState(mixedPack.slice(0, 4))
   const [damp, updateDamp] = useState([])
   const [pack, updatePack] = useState(mixedPack.slice(4))
+  const [chosenCards, setChosenCards] = useState([])
 
   const handlePackClick = useCallback(e => {
     e.stopPropagation()
-    const takenCards = pack.splice(0, 2)
-    updateHand([...hand, ...takenCards])
+    const takenCards = pack.splice(0, 3)
+    setChosenCards(takenCards)
     updatePack(pack)
-  }, [pack, hand, updateHand, updatePack])
+  }, [pack, updatePack, setChosenCards])
 
   const handleDampClick = useCallback(e => {
     e.stopPropagation()
@@ -38,18 +40,13 @@ function MainCanvas() {
     updateDamp([])
   }, [pack, damp, updatePack, updateDamp])
 
-  console.log(hand)
-
   return (
-    <Canvas
-      // orthographic
-      // camera={{position: [0, 0, 10]}}
-    >
+    <Canvas>
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
-      <Base position={[-2.5, 1, 0]} />
+      {/* <Base position={[-2.5, 1, 0]} />
       <Base position={[0, 1, 0]} />
-      <Base position={[2.5, 1, 0]} />
+      <Base position={[2.5, 1, 0]} /> */}
 
       {/* сброс */}
       {damp.length && <PackBlock
@@ -73,6 +70,14 @@ function MainCanvas() {
         onClick={handlePackClick}
         bold={pack.length / 10}
       />}
+
+      {/* animate block with chosen cards */}
+      {!!chosenCards.length && <CenterCard
+        chosenCards={chosenCards}
+        setChosenCards={setChosenCards}
+        clickByCard={() => console.log('card is chosen')}
+      />}
+
 
     </Canvas>
   );
