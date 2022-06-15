@@ -110,7 +110,7 @@ const dota2Pack = [
     description: 'Даже смерть мне не указ! После захвата базы или убийства верните на руку.',
     health: 4,
     force: 4,
-    imgUrl: './meepo.png'
+    imgUrl: './wKing.png'
   },
 ]
 
