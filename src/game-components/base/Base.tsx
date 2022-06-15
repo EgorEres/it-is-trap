@@ -1,5 +1,5 @@
-const Base = ({position}) => {
-
+const Base = (props:  JSX.IntrinsicElements['mesh']) => {
+  const { position } = props;
   return <mesh
     // scale={1}
     onClick={(event) => console.log('on click by base', event)}

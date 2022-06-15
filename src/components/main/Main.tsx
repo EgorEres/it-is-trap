@@ -8,7 +8,7 @@ import { setPackAction } from '../../store/main-slice'
 const useActions = () => {
   const dispatch = useDispatch()
   return {
-    setPack: useCallback((pack) => dispatch(setPackAction(pack)), [dispatch])
+    setPack: useCallback((pack: any) => dispatch(setPackAction(pack)), [dispatch])
   }
 }
 

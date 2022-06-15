@@ -7,7 +7,7 @@ const Card = ({
   rotation = [0.2, -0.1, 0],
   onClick = () => {},
   cardData
-}) => {
+}: any) => {
   const [active, setActive] = useState(false)
   const springs = useSpring({
     config: { duration: 300 },
@@ -16,16 +16,16 @@ const Card = ({
     rotation: active ? [0,0,0] : rotation,
   })
 
-  const enterHandler = useCallback(e => {
+  const enterHandler = useCallback((e: any) => {
     e.stopPropagation()
     setActive(true)
   }, [setActive])
 
-  const leaveHandler = useCallback(e => {
+  const leaveHandler = useCallback((e: any) => {
     e.stopPropagation()
     setActive(false)
   }, [setActive])
-
+  // @ts-ignore
   return <animated.group
     position={springs.position}
     rotation={springs.rotation}
@@ -41,6 +41,7 @@ const Card = ({
       />
       <meshStandardMaterial
         color={'yellow'}
+        // @ts-ignore
         emissive={'black'}
         metalness={0.5}
         lightMapIntensity={3}

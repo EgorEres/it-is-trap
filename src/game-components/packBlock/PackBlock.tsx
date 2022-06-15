@@ -7,7 +7,9 @@ const PackBlock = ({
 
   return <mesh
     onClick={onClick}
+    // @ts-ignore
     position={position}
+    // @ts-ignore
     rotation={rotation}
   >
     <boxGeometry args={[2.2, bold, 1.1]} />

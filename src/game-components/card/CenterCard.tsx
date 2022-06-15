@@ -3,7 +3,7 @@ import Image from '../image/Image'
 import { useSpring, animated, useSpringRef, useChain } from '@react-spring/three'
 
 
-const NewCard = ({ cardData }) => {
+const NewCard = ({ cardData }: any) => {
   const [active, setActive] = useState(false)
   return <group onClick={() => setActive(true)}>
     <Image url={cardData.imgUrl} />
@@ -11,6 +11,7 @@ const NewCard = ({ cardData }) => {
       <boxGeometry args={[1.2, 2, 0.01]} />
       <meshStandardMaterial
         color={active ? 'green' : 'yellow'}
+        // @ts-ignore
         emissive={'black'}
         lightMapIntensity={3}
       />
@@ -25,7 +26,7 @@ const CenterCard = ({
   position = [5, -2.5, -0.5],
   rotation = [-1.5, 3, 0],
   clickByCard = () => console.log('card is chosen')
-}) => {
+}: any) => {
   console.log('chosen cards:', chosenCards)
 
   const firstCardRef = useSpringRef()
@@ -76,6 +77,7 @@ const CenterCard = ({
   useChain([firstCardRef, secondCardRef, thirdCardRef], [0, 0.25, 0.5])
 
   return <group>
+    {/* @ts-ignore */}
     <animated.group
       {...firstProps}
       onClick={clickByCard}
